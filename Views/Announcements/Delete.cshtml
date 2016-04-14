@@ -1,0 +1,34 @@
+﻿@model NHDNUG.Data.nh_Announcements
+
+@{
+    ViewBag.Title = "Delete Announcement";
+}
+<script type="text/javascript">
+    setAdminNavFocus("announcementsAdmin")
+</script>
+<h2>@ViewBag.Title</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="featured">
+    <table>
+        <tr>
+            <td class="display-label">@Html.LabelFor(model => model.MeetingID, "Meeting")</td>
+            <td class="display-field">@Html.DisplayFor(model => model.nh_Meetings.Topic )</td>
+        </tr>
+        <tr>
+            <td class="display-label">@Html.LabelFor(model => model.Title )</td>
+            <td class="display-field">@Html.DisplayFor(model => model.Title )</td>
+        </tr>
+        <tr>
+            <td class="display-label">@Html.LabelFor(model => model.Body )</td>
+            <td class="display-field">@Html.Raw(Model.Body)</td>
+        </tr>
+    </table>
+</div>
+<br />
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" class="k-button" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

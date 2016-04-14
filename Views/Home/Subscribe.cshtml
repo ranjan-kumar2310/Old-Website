@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Subscribe";
+}
+
+<h2>@ViewBag.Title</h2>
+<h3>Want to be reminded about our monthly meetings?</h3>
+<p> 
+Enter your email to the right and click the Subscribe button.
+We promise no more than two emails per month.
+</p>
+<p>
+You can also follow us on Facebook and Twitter using the links below.
+</p>
+@section News {
+
+@Html.Partial("_NewsletterSignUp")
+<br />
+}

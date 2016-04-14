@@ -1,0 +1,54 @@
+﻿@model IEnumerable<NHDNUG.Data.nh_Documents>
+
+@{
+    ViewBag.Title = "Document Listing";
+    Layout = "~/Views/Shared/_LayoutNoSidebar.cshtml";
+}
+
+<script type="text/javascript">
+    setAdminNavFocus("documentsAdmin")
+</script>
+
+@section head{
+
+}
+
+<h2>@ViewBag.Title</h2>
+
+@Html.ActionLink("Create New", "Create")
+
+<div class="featured table-highlight">
+    <table style="width:100%;">
+        <tr>
+            <th>
+                Description
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Path
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description )
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Path )
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.DocumentID  }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.DocumentID  })
+            </td>
+        </tr>
+    }
+
+    </table>
+</div>

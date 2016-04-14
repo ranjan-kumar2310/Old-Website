@@ -1,0 +1,19 @@
+﻿@model NHDNUG.Data.nh_Addresses
+
+@{
+    ViewBag.Title = "Create Location";
+}
+<script type="text/javascript">
+    setAdminNavFocus("locationsAdmin")
+</script>
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    @Html.Partial("_CreateOrEdit", Model)
+
+    <p>
+        <input type="submit" value="Create" class="k-button" /> | @Html.ActionLink("Back to List", "Index")
+    </p>
+}

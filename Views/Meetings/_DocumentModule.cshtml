@@ -1,0 +1,76 @@
+﻿@model NHDNUG.Models.ViewModelMeetingEdit
+
+
+<script src="../../Scripts/jquery.unobtrusive-ajax.min.js" type="text/javascript"></script>
+
+<h2>Documents</h2>
+<div class="featured">
+    @using (Html.BeginForm())
+    {
+        @*<text>Description:</text>
+        <input name="Description" 
+               id="Description" 
+               type="text"
+               data-val="true" 
+               data-val-length="Must be under 500 characters" 
+               data-val-length-max="500" 
+               data-val-required="Required" 
+               value="Reference Material" class="normal" />*@
+        <input name="files" id="files" type="file" />
+    }
+    
+    
+    @if (Model.Documents.Count() > 0)
+    {
+    
+    <table style="width:100%;">
+        @foreach (var item in Model.Documents)
+        {
+            <tr id="@string.Format("row-{0}", item.DocumentID)">
+                <td><a href="@Url.Content("~/Content/documents/" + item.Path)" target="_blank">@Html.DisplayFor(modelItem => item.Path)</a></td>
+                <td>
+                    <a href="#" onclick="javascript:removeDocument(@item.DocumentID);return false;">delete</a>
+                    
+                </td>
+            </tr>
+        }
+        </table>
+        <img id="loading" style="display:none;" src="@Url.Content("~/Content/images/wait_circle.gif")" alt="Please Wait..."  />
+    }
+    else
+    {
+       <text>No documents listed</text> 
+    }
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#files").kendoUpload({
+            async: {
+                saveUrl: "../../File/uploadMeetingDocument?DocumentID=@Model.Meeting.MeetingID",
+                autoUpload: true
+            }
+        });
+
+        $.ajaxSetup({
+            beforeSend: function () {
+                // show gif here, eg:
+                $("#loading").show();
+            },
+            complete: function () {
+                // hide gif here, eg:
+                $("#loading").hide();
+            }
+        });
+
+    });
+
+
+    function removeDocument(id){
+        $.getJSON("../../File/deleteMeetingDocument/" + id,
+        function (data) {
+            $('#row-' + data.id).fadeOut(800);
+        });
+
+    }
+</script>

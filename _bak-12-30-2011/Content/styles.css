@@ -1,0 +1,445 @@
+﻿body {
+    height:100%;
+    background: #c7c7c7;
+    color:#313131;    
+}
+
+form, html {
+    height:100%;
+}
+
+a{
+text-decoration:none;
+}
+
+a:hover{
+text-decoration:underline;
+}
+
+h1, h2{
+    font-size:150%;
+    margin-bottom:8px;
+}
+
+h2{
+    font-size:130%;
+}
+
+p
+{
+    margin-bottom:.5em;
+}
+
+.pagecontent
+{
+    font-size:130%;
+    background:#FFF;
+    padding:1em;   
+}
+
+.pagecontent ul
+{
+    margin-bottom:1em;   
+}
+
+/* Header Styles */
+#hd 
+{
+    height:80px;
+}
+
+#hd img
+{
+    margin-top:25px;
+    vertical-align:middle;
+    border:none;
+}
+
+#hd .logo
+{
+    margin-left:15px;
+}
+
+#hd .dotNetLogo
+{
+    float:right;
+    margin-right:20px;
+}
+/* End Header Styles */
+
+/* Top Menu Styles */
+#topMenu
+{
+    width:100%;
+    background:#989898;
+    color:#313131;
+    height:43px;
+    font-size: 182%; /*24px*/
+    font-weight:bold;
+    margin-bottom:18px;
+} 
+
+#topMenu li
+{
+    display:block;
+    float:left;
+    padding:2px 2px;    
+}
+
+#topMenu a, #topMenu a:hover
+{
+    color:#313131;
+    text-decoration:none;
+    display:block;  
+    padding:5px 20px; 
+}
+
+#topMenu a:hover
+{
+    background: #e2e2e2;
+}
+
+#topMenu a.selected
+{
+    background:#89c455;
+    color:#FFF;
+}
+
+/* End Top Menu Styles */
+
+/* Home Lower Styles */
+
+.lowerHome{
+    margin:18px 0 18px 0;
+}
+
+
+.lowerHome .titleBar{
+    background:#5c8099;
+    padding:5px 0;
+    width:100%;
+}
+
+.lowerHome h2{
+    color:#FFF;        
+    font-size:153.9%; /* 20px */
+    font-weight: bold;
+    margin-left:10px;    
+}
+
+.lowerBox{
+    background:#FFF;
+    min-height:275px;
+}
+
+.lowerBox .content{
+    padding:10px;
+}
+
+/* End Home Lower Sytles */
+
+/*Tweet Box Styles*/
+
+#tweetBox h2{
+    margin-left:65px;
+}
+
+#tweetBox img{
+    float:left;
+    margin:-20px 0 0 -10px;
+}
+
+#tweetList{
+    margin:10px 0 5px 0;
+}
+
+#tweetList li{
+    background:#d4f3b9;
+    padding:5px;    
+    margin-bottom:5px;
+}
+
+#tweetList li:hover{
+    background:#ecffdc;
+}
+
+#tweetList li a{
+    text-decoration:none;
+    color:inherit;
+    display:block;
+}
+
+#tweetList li p{
+    margin-bottom:2px;
+}
+
+#tweetList li i{
+    color:#89c455;
+}
+
+/*End Tweet Box Styles*/
+
+/* Footer Styles */
+#ft{
+    color: #313131;
+}
+/* End Footer Styles */
+
+.meetingDetails{
+    padding:5px;
+    background:#eeffdd;
+    margin-bottom:10px;
+}
+
+.meetingDetails h2{
+    margin-top:5px;
+    margin-bottom:2px;
+}
+
+#upcomingMeetings
+{
+    height: 400px;
+    width: 660px;
+    /*background:#EFEFEF;
+    border:solid 1px #0A0A0A;*/
+    margin-top: 0px;
+    float:left;
+    margin-right:15px;
+    vertical-align: top;
+   
+}
+
+#upcomingLeft
+{
+    float:left;
+    width: 75px;
+    height: 375px;
+}
+
+#upcomingLeft li
+{
+    width: 90px;
+    height: 90px;
+}
+
+#upcomingLeft .ucIcon
+{
+    cursor: pointer;
+    width: 70px;
+    height: 70px;
+    background-image: url(/images/calendar.png);  
+    background-repeat: no-repeat;
+    margin-top: 10px;
+    margin-left: 13px;   
+}
+#upcomingLeft .ucMon
+{
+    color: White;
+    font-weight: bolder;
+    width: 63px;
+    text-align: center;
+    padding-top: 4px;  
+}
+
+#upcomingLeft .ucDate
+{
+    color: #3f5869;
+    font-weight: bolder;
+    width: 63px;
+    text-align: center;
+    padding-top: 7px;  
+    font-size: 225%;
+}
+#upcomingRight
+{
+    float: right;
+    width: 570px;
+    height: 375px;  
+    background-color: #f0eaea;
+}
+
+
+.ucSelected
+{
+    display: inline;
+}
+
+#upcomingRight div
+{
+
+}
+
+.ucUnselected
+{
+    display: none;    
+}
+
+.ucSelectedLi
+{
+    background-color: #f0eaea;
+    border: 1px solid #f0eaea;
+    
+    
+}
+
+.ucUnselectedLi
+{
+    border: solid 1px #3f5869;
+}
+
+#upcomingRight .ucDisplay 
+{
+    margin: 15px;
+    height: 350px;
+}
+
+#upcomingRight .ucDisplayUpper
+{
+    height: 245px;
+}
+#upcomingRight .ucTopic
+{
+    font-size: 150%;
+    font-weight:bold;
+    color: #49667a;
+}
+
+#upcomingRight .ucSpeaker
+{
+    padding-top: 4px;
+    font-size: 125%;
+    color: #575757;
+}
+
+.ucSpeaker a, .ucSpeaker a:hover, .ucSpeaker a:visited
+{
+    text-decoration: none;
+    color: #575757;
+    
+}
+
+#upcomingRight .ucDesc
+{
+    padding-top: 15px;
+    font-size: 110%;
+}
+
+#upcomingRight .ucSponsor
+{
+    padding-top: 10px;
+    vertical-align: bottom;
+    text-align: center;
+    font-size: 80%;
+    margin-bottom: 5px;
+    padding-bottom: 5px;
+}
+
+#upcomingRight .ucSponsorInner
+{
+    padding-bottom: 5px;    
+}
+#meeting
+{
+    height: 375px;
+    width: 66.7%;
+    background:#EFEFEF;
+    border:solid 1px #0A0A0A;
+    padding:1em;
+    float:left;
+    font-size:136%;
+    margin-right:15px;
+}
+
+#meeting p
+{
+    margin: 1em 0;   
+}
+
+#rightbar
+{
+    vertical-align: top;
+    float:right;
+    width:25%;
+}
+
+#facebook
+{
+    margin-top: 30px;
+}
+#facebook h2{
+    color:#FFF;        
+    font-size:153.9%; /* 20px */
+    font-weight: bold;
+    margin-left:10px; 
+}
+#facebook a, a:hover, a:visited
+{
+    text-decoration : none;
+}
+
+#facebook .titleBar{
+    background:#5c8099;
+    padding:5px 0;
+    width:100%;
+}
+
+#facebook img{
+    float:left;
+    margin:-20px 0 0 -10px;
+}
+
+#newsletter
+{
+    height:100%;
+    border:solid 1px #0A0A0A;
+    background:dimgray;
+    color:#FFF;
+    font-size: 115%;   
+    padding:.5em;
+    text-align:center;
+}
+
+#newsletter p, #newsletter h2
+{
+    text-align:left;   
+}
+
+#newsletter input
+{
+    font-size:115%;
+    margin:.25em 0;
+    width:78%;
+}
+
+#sponsorList{
+    margin:10px 0 5px 0;
+}
+
+#sponsorList li{
+    padding:5px;    
+    margin-bottom:5px;
+}
+
+#sponsorList .alt
+{
+    background: #d3dee5;   
+}
+
+#sponsorList li:hover{
+}
+
+#sponsorList li a{
+    text-decoration:none;
+    color:inherit;
+    display:block;
+}
+
+#sponsorList .sponsorName 
+{
+   font-size: 115%;
+   font-weight: bold;
+}
+
+#sponsorList li p{
+    margin-bottom:2px;
+}

@@ -1,0 +1,23 @@
+﻿@model NHDNUG.Data.nh_Speakers
+
+@{
+    ViewBag.Title = "Create Speaker";
+    Layout = "~/Views/Shared/_LayoutNoSidebar.cshtml";
+}
+<script type="text/javascript">
+    setAdminNavFocus("speakersAdmin")
+</script>
+<h2>@ViewBag.Title</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+    @Html.Partial("_CreateOrEdit", Model)
+
+    <p>
+        <input type="submit" value="Create" class="k-button" /> | @Html.ActionLink("Back to List", "Index")
+    </p>
+
+}

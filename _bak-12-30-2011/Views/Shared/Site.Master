@@ -1,0 +1,70 @@
+<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>North Houston .NET User Group</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css"
+        type="text/css" />
+    <link rel="Stylesheet" type="text/css" href="/Content/styles.css" />
+    <script type="text/javascript" src="/scripts/jquery-1.3.2.min.js"></script>
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2"></script>
+
+    <script type="text/javascript">
+        function setPageTab(tabName) {
+            //Clear selection first
+            $(".selected").removeClass("selected");
+            
+            //Set selection
+            $("#tab"+ tabName).addClass("selected");
+        }
+
+    </script>
+    <asp:ContentPlaceHolder id="pageHeader" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+
+    <div id="doc2" class="yui-t7">
+        <div id="hd">
+            <img class="logo" src='<%= VirtualPathUtility.ToAbsolute("~/images/nhdnug_logo.png") %>' alt="North Houston .NET User Group" />
+            <img class="dotNetLogo" src='<%= VirtualPathUtility.ToAbsolute("~/images/dotnet_logo.png") %>' alt="Microsoft .NET" />
+        </div>
+        <div id="bd">
+            <div class="yui-g">
+                <div id="topMenu">
+                    <ul>
+                        <li><%= Html.ActionLink("Home", "Index", new { controller = "Home" }, new { @id = "tabhome", @class = "selected" })%></li>
+                        <li><%= Html.ActionLink("Meetings", "Index", new { controller = "Meetings" }, new { @id = "tabmeetings" })%></li>
+                        <%--<li><a id="tabjobs" href="#">Jobs</a></li>
+                        <li><a id="blog" href="#">Blog</a></li>--%>
+                        <li><%= Html.ActionLink("Sponsors", "Index", new { controller = "Sponsors" }, new { @id = "tabsponsors" })%></li>
+                        <li><%= Html.ActionLink("Contact", "Contact", new { controller = "Home" }, new { @id = "tabcontact" })%></li>
+                    </ul>
+                </div>
+                <asp:ContentPlaceHolder runat="server" ID="pageUpperBody" />
+            </div>
+            <div class="yui-gd lowerHome">
+                <asp:ContentPlaceHolder runat="server" ID="pageBody">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div id="ft">
+            Site designed & created by NHDNUG | Copyright &copy; <%= DateTime.Now.Year.ToString() %> North Houston .NET User Group | <a href="/Home/Contact">Contact Us</a> | Hosting provided by <a href="http://www.discountasp.net/index.aspx?refcode=NHDNUG">DiscountASP.NET</a>
+        </div>
+    </div>
+    <% Html.Telerik().ScriptRegistrar().DefaultGroup(d => d.Disabled(true)).Render(); %>
+    <script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10432272-4");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>
+
+

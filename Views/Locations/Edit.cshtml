@@ -1,0 +1,24 @@
+﻿@model NHDNUG.Data.nh_Addresses
+
+@{
+    ViewBag.Title = "Edit Location";
+}
+<script type="text/javascript">
+    setAdminNavFocus("locationsAdmin")
+</script>
+<h2>@ViewBag.Title</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+
+    @Html.HiddenFor(model => model.AddressID)
+
+    @Html.Partial("_CreateOrEdit", Model)
+
+    <p>
+        <input type="submit" value="Save" class="k-button" /> | @Html.ActionLink("Back to List", "Index")
+    </p>
+}

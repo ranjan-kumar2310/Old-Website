@@ -1,0 +1,25 @@
+﻿<span id="LogOn"> 
+	@Html.Partial("_LogOnPartial")
+	@if (Context.User.IsInRole("Admin") == true)
+	{
+		<table id="adminNav" style="display:block;">
+			<tr>
+				<td><span id="meetingsAdmin">@Html.ActionLink("meetings", "Index", "Meetings")</span> | </td>
+				<td><span id="speakersAdmin">@Html.ActionLink("speakers", "Index", "Speakers")</span> | </td>
+				<td><span id="locationsAdmin">@Html.ActionLink("locations", "Index", "Locations")</span></td>
+			</tr>
+			<tr>
+				<td><span id="sponsorsAdmin">@Html.ActionLink("sponsors", "Listing", "Sponsors")</span> | </td>
+				<td><span id="announcementsAdmin">@Html.ActionLink("announce", "Index", "Announcements")</span> | </td>
+				<td></td>
+			</tr>
+		</table>
+	}
+</span>
+<ul>
+	<li id="homeNav">@Html.ActionLink("home", "Index", "Home")</li>
+	<li id="meetingsNav">@Html.ActionLink("meetings", "Archive", "Meetings")</li>
+	<li id="sponsorsNav">@Html.ActionLink("sponsors", "Index", "Sponsors")</li>
+	<li id="raffelNav">@Html.ActionLink("raffle", "Index", "Raffle")</li>
+	<li id="contactNav">@Html.ActionLink("contact", "Contact", "Home")</li>
+</ul>

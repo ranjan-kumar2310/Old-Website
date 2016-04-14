@@ -1,0 +1,43 @@
+﻿/* This is just a subset of the full CSS, only used for the jQuery text editor*/
+body 
+{
+    margin: 5px;
+	font: 0.8em Tahoma,Verdana,Helvetica,Helvetica-Narrow,sans-serif;
+}
+a:link {
+	text-decoration: none;
+	color: #396EAA;
+}
+a:visited {
+	text-decoration: none;
+	color: #396EAA;
+}
+a:hover {
+	text-decoration: none;
+    color:Maroon ;
+
+}
+a:active {
+	text-decoration: none;
+}
+
+.h3
+{
+    font-weight:bold;
+}
+
+.shaded 
+{
+	color:Silver;
+}
+.field
+{
+    background-color:#D8D8D8;
+}
+
+.fieldtitle
+{
+    background-image:url(images/fieldtitle.png);
+    color:#545050;
+    width:100px;
+}

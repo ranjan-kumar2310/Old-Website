@@ -1,0 +1,28 @@
+﻿<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<script>
+    new TWTR.Widget({
+        version: 2,
+        type: 'profile',
+        rpp: 3,
+        interval: 30000,
+        width: 300,
+        height: 300,
+        theme: {
+            shell: {
+                background: '#6b4227',
+                color: '#ffffff'
+            },
+            tweets: {
+                background: '#7a8078',
+                color: '#ffffff',
+                links: '#4aed05'
+            }
+        },
+        features: {
+            scrollbar: false,
+            loop: false,
+            live: false,
+            behavior: 'all'
+        }
+    }).render().setUser('NHDNUG').start();
+</script>

@@ -1,0 +1,63 @@
+﻿@model NHDNUG.Data.nh_Documents
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<div class="featured">
+    <table>
+        <tr>
+            <td class="editor-label">@Html.LabelFor(model => model.Description )</td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Description)
+                @Html.ValidationMessageFor(model => model.Description)
+            </td>
+        </tr>
+        <tr>
+            <td class="editor-label">@Html.LabelFor(model => model.Category )</td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Category)
+                @Html.ValidationMessageFor(model => model.Category)        
+            </td>
+        </tr>
+        <tr>
+            <td class="editor-label">File</td>
+            <td class="editor-field">
+                @Html.HiddenFor(model => model.Path)
+                <input name="files" id="files" type="file" />
+                @Html.ValidationMessageFor(model => model.Path)        
+            </td>
+        </tr>
+    </table>
+    <br />
+    <script>
+        $(document).ready(function () {
+            $("#files").kendoUpload({
+                async: {
+                    saveUrl: "../File/uploadDocument",
+                    autoUpload: true
+                },
+                success: function (data) {
+                    $.each(data, function (key, val) {
+                        //alert('Key=' + key + ' Val=' + val);
+                        if (key == 'files') {
+                            $.each(val, function (key, val) {
+                                //alert('File Key=' + key + ' File Val=' + val);
+                                $.each(val, function (key, val) {
+                                    //alert('File object Key=' + key + ' File Val=' + val);
+                                    if (key == 'name') {
+                                        //alert('Filename=' + val);
+                                        $("#Path").val(val);
+                                        
+                                    }
+                                });
+                            });
+                        }
+                    });
+                }
+
+
+
+            });
+        });
+    </script>
+</div>
+<br />

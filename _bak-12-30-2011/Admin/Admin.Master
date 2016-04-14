@@ -1,0 +1,32 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="NHDNUG.Mvc.Admin.Admin" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>North Houston DNUG Admin</title>
+    <link rel="stylesheet" href="http://yui.yahooapis.com/2.7.0/build/reset-fonts-grids/reset-fonts-grids.css"
+        type="text/css" />
+    <link type="text/css" rel="Stylesheet" href="../Content/styles.css" />
+    <link type="text/css" rel="Stylesheet" href="../Content/adminStyles.css" />
+    <asp:ContentPlaceHolder ID="pageHead" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="hd">
+    <h1>NHDNUG Admin</h1>
+    Manage: <a href="Meetings.aspx">Meetings</a> | <a href="Speakers.aspx">Speakers</a> | <a href="Sponsors.aspx">Sponsors</a> | <a href="Addresses.aspx">Addresses</a>
+    </div>
+    <div>
+        <asp:ScriptManager ID="ScriptManager1" runat="server" />
+        <asp:ContentPlaceHolder ID="pageBody" runat="server">
+        
+        </asp:ContentPlaceHolder>
+    </div>
+    <div id="ft">
+    
+    </div>
+    </form>
+</body>
+</html>

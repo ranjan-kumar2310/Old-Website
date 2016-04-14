@@ -1,0 +1,85 @@
+﻿@model NHDNUG.Data.nh_Meetings
+
+<div class="featured">
+    <table style="width:100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th style="text-align:right;">Meeting Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="editor-label">@Html.LabelFor(model => model.StartDateTime)</td>
+                <td class="editor-field">
+                    @Html.TextBoxFor(model => model.StartDateTime) (1/1/1999 6:00 PM)
+                    @Html.ValidationMessageFor(model => model.StartDateTime)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">@Html.LabelFor(model => model.Duration)</td>
+                <td class="editor-field">
+                    @Html.TextBoxFor(model => model.Duration, new { style = "width:20px;" }) (hours)
+                    @Html.ValidationMessageFor(model => model.Duration)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">Speaker</td>
+                <td class="editor-field">
+                    <span style="float:right;">@Html.ActionLink("new speaker", "Create", "Speakers")</span>
+                    @Html.DropDownListFor(model => model.SpeakerID, ((IEnumerable<NHDNUG.Data.nh_Speakers>)ViewBag.PossibleSpeakers).Select(option => new SelectListItem
+                    {
+                        Text = (option == null ? "None" : option.NameFirstLast ),
+                        Value = option.SpeakerID.ToString(),
+                        Selected = (Model != null) && (option.SpeakerID == Model.SpeakerID)
+                    }), "Choose...")
+	                @Html.ValidationMessageFor(model => model.SpeakerID)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">Location</td>
+                <td class="editor-field">
+                    <span style="float:right;">@Html.ActionLink("new location", "Create", "Locations")</span>
+                    @Html.DropDownListFor(model => model.AddressID, ((IEnumerable<NHDNUG.Data.nh_Addresses>)ViewBag.PossibleLocations).Select(option => new SelectListItem
+                    {
+                        Text = (option == null ? "None" : option.Name  ),
+                        Value = option.AddressID.ToString(),
+                        Selected = (Model != null) && (option.AddressID == Model.AddressID)
+                    }), "Choose...")
+	                @Html.ValidationMessageFor(model => model.AddressID)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">@Html.LabelFor(model => model.Topic)</td>
+                <td class="editor-field">
+                    @Html.TextBoxFor(model => model.Topic, new { style = "width:400px;" })
+                    @Html.ValidationMessageFor(model => model.Topic)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">@Html.LabelFor(model => model.Description)</td>
+                <td class="editor-field">
+                    @Html.TextAreaFor(model => model.Description, new { style = "width:400px; height:60px" })
+                    @Html.ValidationMessageFor(model => model.Description)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">@Html.LabelFor(model => model.FollowUpNotes)</td>
+                <td class="editor-field">
+                    @Html.TextAreaFor(model => model.FollowUpNotes, new { style = "width:400px; height:60px" })
+                    @Html.ValidationMessageFor(model => model.FollowUpNotes)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">@Html.LabelFor(model => model.MeetingType)</td>
+                <td class="editor-field">
+                    @Html.EditorFor(model => model.MeetingType)
+                    @Html.ValidationMessageFor(model => model.MeetingType) (UserGroup)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+</div>
+
+<br />

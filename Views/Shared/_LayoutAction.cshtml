@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<!-- Website template by freewebsitetemplates.com -->
+<html>
+<head>
+	<title>North Houston .NET Users Group - @ViewBag.Title</title>
+	<meta charset="utf-8" />
+	<link href="@Url.Content("~/Content/style.css")" rel="stylesheet" type="text/css" />
+    <link href="../../kendoui/styles/kendo.common.min.css" rel="stylesheet" type="text/css" />
+    <link href="../../kendoui/styles/kendo.default.min.css" rel="stylesheet" type="text/css" />    
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+    <script src="../../kendoui/js/kendo.all.min.js" type="text/javascript"></script>
+    @RenderSection("Head", false)
+    <script type="text/javascript">
+        function setNavFocus(pageName) {
+            $("#" + pageName).addClass("current");
+        }
+        function setAdminNavFocus(pageName) {
+            $("#" + pageName).addClass("currentAdmin");
+        }
+    </script>
+</head>
+
+<body>
+	<div id="page">
+    <!-- NOTE: CSS for header id had to be moved to -500px top for canvas.... -->
+		<div id="header"> <!-- start of header -->
+            <span id="LogOn"> 
+                @Html.Partial("_LogOnPartial")
+                @if (Context.User.IsInRole("Admin") == true)
+                {
+                    <text>
+                    | <span id="meetingsAdmin">@Html.ActionLink("meetings", "Index", "Meetings")</span>
+                    | <span id="speakersAdmin">@Html.ActionLink("speakers", "Index", "Speakers")</span>
+                    | <span id="locationsAdmin">@Html.ActionLink("locations", "Index", "Locations")</span>
+                    | <span id="sponsorsAdmin">@Html.ActionLink("sponsors", "Index", "Sponsors")</span>
+                    </text>
+                }
+
+            </span>
+			<ul>
+				<li id="homeNav">@Html.ActionLink("home", "Index", "Home")</li>
+                <li id="meetingsNav">@Html.ActionLink("meetings", "Archive", "Meetings")</li>
+                <li id="sponsorsNav">@Html.ActionLink("sponsors", "Index", "Sponsors")</li>
+                <li id="raffelNav">@Html.ActionLink("raffle", "Index", "Raffle")</li>
+                <li id="contactNav">@Html.ActionLink("contact", "Contact", "Home")</li>
+			</ul>
+            
+			<div>
+				@Html.ActionLink(" ", "Subscribe", "Home", null, new { Class = "join" })
+				<h3>We Welcome Participation</h3>
+				<p>(no cost, FREE PIZZA!)</p>
+			</div>
+		</div> <!-- end of header -->
+
+		<div id="body">  
+			<div id="main">
+                @RenderBody()
+				<!-- end of featured -->
+                <!-- srtart of gallery and article section -->
+				<div class="section" > 
+					<div id="gallery">
+						@RenderSection("Gallery", false)
+					</div>
+
+					<div id="events">
+						@RenderSection("Events", false)
+					</div>
+				</div> 
+                <!-- end of gallery and article section -->
+			</div>
+
+            <!-- start of sidebar -->
+			<div id="sidebar">  
+				@RenderSection("News", false)
+			</div>  
+            <!-- end of sidebar -->
+		</div>  
+        <!-- end of body wrapper -->
+	</div>
+    <!-- start of footer part -->
+	<div id="footer"> 
+		<div>
+			<ul>
+				<li><a href="http://facebook.com/nhdnug" target="_blank" class="fb">Facebook</a></li>
+				<li><a href="http://twitter.com/nhdnug" target="_blank" class="twitr">Twitter</a></li>
+			</ul>
+             Hosting provided by <a href="http://www.discountasp.net/index.aspx?refcode=NHDNUG">DiscountASP.NET</a>
+			<span> &copy; Copyright &copy; 2012. North Houston .NET Users Group</span>
+		</div>
+	</div> 
+    <!-- end of footer part -->
+    <!-- Start Analytics -->
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-10432272-4");
+            pageTracker._trackPageview();
+        } catch (err) { }
+    </script>
+    <!-- end Analytics -->
+
+</body>
+</html>
+

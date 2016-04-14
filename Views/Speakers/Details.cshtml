@@ -1,0 +1,16 @@
+﻿@model NHDNUG.Data.nh_Speakers
+
+@{
+    ViewBag.Title = "Speaker Details";
+    Layout = "~/Views/Shared/_LayoutNoSidebar.cshtml";
+}
+<script type="text/javascript">
+    setAdminNavFocus("speakersAdmin")
+</script>
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_Details", Model)
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.SpeakerID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

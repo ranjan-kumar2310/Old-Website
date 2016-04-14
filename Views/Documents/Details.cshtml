@@ -1,0 +1,35 @@
+﻿@model NHDNUG.Data.nh_Documents
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>nh_Documents</legend>
+
+    <div class="display-label">nh_Meetings</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nh_Meetings.Topic)
+    </div>
+
+    <div class="display-label">Description</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Description)
+    </div>
+
+    <div class="display-label">Path</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Path)
+    </div>
+
+    <div class="display-label">Category</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Category)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.DocumentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

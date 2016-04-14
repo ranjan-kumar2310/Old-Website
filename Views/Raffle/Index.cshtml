@@ -1,0 +1,387 @@
+﻿@{
+    ViewBag.Title = "Raffel";
+    Layout = "~/Views/Shared/_LayoutAnimated.cshtml";
+}
+<script type="text/javascript">
+    setNavFocus("raffelNav")
+</script>
+<link href="../../Content/styleClock.css" rel="stylesheet" type="text/css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+
+    <div id="wrap" style="opacity: 1; margin-top: 0px; margin:0px auto; ">
+        <img id="digit6" class="time" src="../../Content/images/clock_nums10.png" style="margin-top: -0px; ">
+        <img id="digit5" class="time" src="../../Content/images/clock_nums10.png" style="margin-top: -0px; ">
+            <img class="separator" style="display:inline;" src="../../Content/images/clock_colon.png">
+        <img id="digit4" class="time" src="../../Content/images/clock_nums10.png" style="margin-top: -0px; ">
+        <img id="digit3" class="time" src="../../Content/images/clock_nums10.png" style="margin-top: -0px; ">
+            <img class="separator" style="display:inline;" src="../../Content/images/clock_colon.png">
+        <img id="digit2" class="time" src="../../Content/images/clock_nums10.png" style="margin-top: -0px; ">
+        <img id="digit1" class="time" src="../../Content/images/clock_nums10.png" style="margin-top: -0px; ">
+        <div style="clear:left;"> </div>
+        <div id="cover"> </div>
+    </div> <!-- End "wrap" -->
+    <span id="info" class="info"></span>
+    <span id="error" class="error"></span>
+    <table id="winnerList">
+        <tr><td></td></tr>
+    </table>
+@section News {
+    <div style="float:right; position:relative; left:50px;" >
+
+        Range Start:<input id="rangeStart" class="range" type="text" value="0" />
+        <br />
+        Range End:<input id="rangeEnd" class="range" type="text" value="10"/> 
+        <br />   
+        <a href="#" id="Reset" class="k-button" onclick="javascript:resetDrawing();return false" title="Resets winner list so drawing can be restarted using all numbers in the range">Reset</a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="#" id="DrawNumber" class="k-button" onclick="javascript:drawNumber();return false" title="Draw random number from range">Draw Number</a>
+        <br /><br />
+        <a href="#" id="Resume" class="k-button" onclick="javascript:resumeClock();return false" title="Resumes display in clock mode, but does NOT reset winner list, you can continue to draw numbers at any point">Resume Clock Mode</a>
+        <br />
+
+        
+        <audio id="mySound" preload="true">
+          <source src="../../content/media/magic-chime-02.mp3" type="audio/mp3" />
+          Your browser does not support the audio element, try IE9, Chrome
+        </audio>
+
+        <span style="float:right; padding:10px;">
+            More raffle styles at <a href="http://www.TexasJetter.com/Silverdraw" target="_blank">TexasJetter</a>
+        </span>
+    </div>
+}
+<script type="text/javascript">
+    // Basic clock functionality based on http://home.comcast.net/~vonholdt/test/clock/index.htm
+    // Sounds from http://www.soundjay.com
+    // Random drawing logic by TexasJetter http://www.texasjetter.com/
+    var clock = true;
+    var range = [];
+    var validRange = true;
+    var spin1 = false;
+    var spin2 = false;
+    var spin3 = false;
+    var spin4 = false;
+    var spin5 = false;
+    var spin6 = false;
+    //Initialize everything when the document has been loaded
+    $(document).ready(function () {
+        //fade wrap div opacity to zero
+        $('#wrap').animate({ opacity: 0.0 }, 0);
+        //initially hide the info and error message boxes
+        $('#info').hide();
+        $('#error').hide();
+
+        //IE8 has problems with the clock, but can do the animation ok
+        if (getInternetExplorerVersion() == 8) {
+            $('#Resume').hide();
+        }
+        else {
+            //Get the clock started
+            startClock();
+        }
+
+        //Fade the wrap div back to full opacity so we can see it
+        $('#wrap').animate({ opacity: 1.0 }, 1000);
+
+        if (Modernizr.canvas == false) {
+            alert("Canvas not supported");
+        }
+        else {
+            AnimateCanvas();
+        }
+    });
+
+    //--------------------------------------------------------------------------------
+    // number display functions
+    //--------------------------------------------------------------------------------
+    function startClock() {
+        $('.time').attr('src', '../../Content/images/clock_nums10.png');
+        clock = true;
+        $('.separator').show();
+        checktime();
+
+    }
+
+    function resumeClock() {
+        startClock();
+        showMenu();
+    }
+
+    //Function that animates the clock and sets time to keep it running
+    function checktime(prevhour, prevmins, prevsecs) {
+        var now = new Date();
+
+        var hour = now.getHours();
+        if (hour < 10) hour = "0" + hour;
+
+        var mins = now.getMinutes();
+        if (mins < 10) mins = "0" + mins;
+
+        var secs = now.getSeconds();
+        if (secs < 10) secs = "0" + secs;
+
+        var hour = hour + "";
+        var mins = mins + "";
+        var secs = secs + "";
+
+        if (prevhour != hour) {
+
+            var prevhour = prevhour + ""
+            var hoursplit = hour.split("");
+            var prevhoursplit = prevhour.split("");
+
+            if (prevhoursplit[0] != hoursplit[0]) numberflip('#digit6', hoursplit[0]);
+            if (prevhoursplit[1] != hoursplit[1]) numberflip('#digit5', hoursplit[1]);
+
+        };
+
+        if (prevmins != mins) {
+
+            var prevmins = prevmins + ""
+            var minsplit = mins.split("");
+            var prevminsplit = prevmins.split("");
+
+            if (prevminsplit[0] != minsplit[0]) numberflip('#digit4', minsplit[0]);
+            if (prevminsplit[1] != minsplit[1]) numberflip('#digit3', minsplit[1]);
+
+        };
+
+        if (prevsecs != secs) {
+
+            var prevsecs = prevsecs + ""
+            var secsplit = secs.split("");
+            var prevsecsplit = prevsecs.split("");
+
+            if (prevsecsplit[0] != secsplit[0]) numberflip('#digit2', secsplit[0]);
+            if (prevsecsplit[1] != secsplit[1]) numberflip('#digit1', secsplit[1]);
+
+        };
+
+        //run the JavaScript function to trigger checktime in another 200 milliseconds
+        if (clock) { setTimeout(function () { checktime(hour, mins, secs); }, 200); }
+
+    };
+
+    //flip the specified number name to supplied number
+    function numberflip(which, number) {
+        if (number != 0) $(which).animate({ marginTop: '-' + parseInt((number * 140), 10) + 'px' }, 250, 'swing');
+        if (number == 0) {
+            var getmargin = parseInt(($(which).css('margin-top')), 10);
+            $(which).animate({ marginTop: parseInt((getmargin - 140), 10) + 'px' }, 250, 'swing', function () {
+                $(this).css("margin-top", "0px")
+            });
+        };
+    };
+
+    function spinNumber(ticket) {
+        //make sure the clock function is off
+        clock = false;
+        //hide the : separator
+        $('.separator').hide();
+        //pad the winning number to six digits
+        var winner = pad(ticket, 6).split("");
+
+        //play the sound after a delay (coincides with animation end)
+        var audio = $('#mySound').get(0);
+        setTimeout(function () { audio.play(); }, 4000);
+
+        //set the spin flag for this digit
+        spin1 = true;
+        //start the digit spinning, the number will make the digit pause every so often
+        //varying the number makes the digits pause in a non sequential manner
+        spinDigit(1, 600, spin1);
+        //set a time out to stop the digit spinning and set it to the winning digit
+        setTimeout(function () {
+            spin1 = false;                          //sets the flag so the digit will stop spinning
+            setTimeout(function () {
+                numberflip('#digit1', winner[5]);   //set the digit to the winning digit
+            },
+                1000);                                  //time delay to set number, so digit will "stop" briefly before getting set to winning number
+        }, 2000                                 //time delay to set flag and start number delay
+            );
+
+        spin2 = true;
+        spinDigit(2, 1200, spin2);
+        setTimeout(function () { spin2 = false; setTimeout(function () { numberflip('#digit2', winner[4]); }, 1000); }, 1400);
+
+        spin3 = true;
+        spinDigit(3, 800, spin3);
+        setTimeout(function () { spin3 = false; setTimeout(function () { numberflip('#digit3', winner[3]); }, 1000); }, 600);
+
+        spin4 = true;
+        spinDigit(4, 600, spin4);
+        setTimeout(function () { spin4 = false; setTimeout(function () { numberflip('#digit4', winner[2]); }, 1000); }, 2200);
+
+        spin5 = true;
+        spinDigit(5, 1400, spin5);
+        setTimeout(function () { spin5 = false; setTimeout(function () { numberflip('#digit5', winner[1]); }, 1000); }, 2600);
+
+        spin6 = true;
+        spinDigit(6, 200, spin6);
+        setTimeout(function () { spin6 = false; setTimeout(function () { numberflip('#digit6', winner[0]); }, 1000); }, 200);
+    }
+
+    function setDigitsMin() {
+        numberflip('#digit6', 0)
+        numberflip('#digit5', 0)
+        numberflip('#digit4', 0)
+        numberflip('#digit3', 0)
+        numberflip('#digit2', 0)
+        numberflip('#digit1', 0)
+    }
+
+    function setDigitsMax() {
+        numberflip('#digit6', 9)
+        numberflip('#digit5', 9)
+        numberflip('#digit4', 9)
+        numberflip('#digit3', 9)
+        numberflip('#digit2', 9)
+        numberflip('#digit1', 9)
+    }
+
+    function spinDigit(digit, time, flag) {
+        numberflip('#digit' + digit, 0)
+        numberflip('#digit' + digit, 5)
+        numberflip('#digit' + digit, 9)
+        numberflip('#digit' + digit, 0)
+        if (flag) { setTimeout(function () { spinDigit(digit, time); }, time); }
+    }
+
+    // End of display functions ------------------------------------------------------
+
+    //--------------------------------------------------------------------------------
+    // interface
+    //--------------------------------------------------------------------------------
+    function showMenu() {
+        var command = $("#optionSelection").html();
+        switch (command.indexOf("Close")) {
+            case -1:
+                $("#options").show("blind", {}, 800);
+                $("#optionSelection").html(command.replace("Settings", "Close"));
+                break;
+            default:
+                $("#options").hide("blind", {}, 800);
+                $("#optionSelection").html(command.replace("Close", "Settings"));
+        }
+    }
+
+    function drawNumber() {
+        //alert(range.length);
+        $('.time').attr('src', '../content/images/clock_nums10.png');
+        validateRange();
+        if (validRange) {
+            $('#DrawNumber').hide();
+            if (range.length < 1) {
+                //alert("building range");
+                var startNumber = parseInt($("#rangeStart").val());
+                var endNumber = parseInt($("#rangeEnd").val());
+
+                //build the initial array of numbers
+                for (i = startNumber; i <= endNumber; i++) {
+                    range.push(i);
+                }
+            }
+
+            range = range.shuffle();
+            spinNumber(range[0])
+            setTimeout(function () {
+                $('#winnerList tr:first').after('<tr><td>' + pad(range[0], 6) + '</td></tr>');
+                range.shift();
+                if (range.length == 0) {
+                    $('#info').text("All numbers drawn!");
+                    $('#info').show();
+                }
+                else {
+                    $('#DrawNumber').show();
+                }
+
+            },
+                4000
+            );
+        }
+
+    }
+
+    function resetDrawing() {
+        range.length = 0;
+        $('#winnerList').find("tr:gt(0)").remove();
+        $('#DrawNumber').show('slow');
+        $('#info').hide();
+    }
+
+    // End of Interface---------------------------------------------------------------
+
+    //--------------------------------------------------------------------------------
+    // Extension methods and helper functions
+    //--------------------------------------------------------------------------------
+
+    //make sure only numbers are input for the start/end range
+    $('.range').blur(function () {
+        var reslut = parseInt($(this).val());
+        if (reslut.toString() == "NaN") {
+            $('#error').text("Only numbers may be used for a range");
+            $('#error').show().fadeOut(4000);
+            $(this).focus();
+        }
+    });
+
+    //select all text in the input
+    $('.range').focus(function () {
+        this.select()
+    });
+
+    function validateRange() {
+        validRange = true;
+        var startNumber = parseInt($('#rangeStart').val());
+        var endNumber = parseInt($('#rangeEnd').val());
+
+        if (startNumber.toString() == "NaN") { validRange = false; $('#rangeStart').focus(); }
+        if (endNumber.toString() == "NaN") { validRange = false; $('#rangeEnd').focus(); }
+        if (validRange == false) {
+            $('#error').text("Start and End range must be numbers");
+            $('#error').show().fadeOut(4000);
+            return;
+        }
+        if (startNumber > endNumber) {
+            $('#error').text("End number must be less than start number, please verify");
+            $('#error').show().fadeOut(4000);
+
+            $('#rangeEnd').focus();
+            validRange = false;
+            return;
+        }
+
+    }
+
+    //http://javascript.about.com/library/blsort4.htm 
+    Array.prototype.shuffle = function () {
+        var s = [];
+        while (this.length) s.push(this.splice(Math.random() * this.length, 1));
+        while (s.length) this.push(s.pop());
+        return this;
+    }
+
+    function pad(number, length) {
+        var str = '' + number;
+        while (str.length < length) {
+            str = '0' + str;
+        }
+        return str;
+    }
+
+    // Returns the version of Internet Explorer or a -1
+    // (indicating the use of another browser).
+    function getInternetExplorerVersion() {
+      var rv = -1; // Return value assumes failure.
+      if (navigator.appName == 'Microsoft Internet Explorer')
+      {
+        var ua = navigator.userAgent;
+        var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
+        if (re.exec(ua) != null)
+          rv = parseFloat( RegExp.$1 );
+      }
+      return rv;
+    }
+
+    // End of Extension methods------------------------------------------------------
+    </script>    

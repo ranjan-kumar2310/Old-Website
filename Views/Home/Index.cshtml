@@ -1,0 +1,164 @@
+﻿@model NHDNUG.Models.ViewModelMeeting 
+@{
+    ViewBag.Title = "Home";
+}
+<script type="text/javascript">
+    setNavFocus("homeNav")
+</script>
+<h2>Welcome to NHDNUG!</h2>
+<p>
+    The North Houston .NET Users Group meets the third Thursday of every month at 6:30 PM 
+    on the campus of Lone Star College Montgomery in The Woodlands, Texas. 
+    There is free pizza and drinks before every meeting and a raffle for valuable prizes at the end.
+</p>
+
+<div class="featured">
+    @if (Context.User.IsInRole("Admin") == true)
+    {
+        <span style="float:right;">
+            @Html.ActionLink("new meeting", "Create", "Meetings") 
+        </span>
+    }
+    <h3>Next Meeting</h3> 
+    <table>
+        @if (Context.User.IsInRole("Admin") == true)
+        {
+            <tr>
+                <td>Speaker URL:</td>
+                <td>
+                    <a href="http://www.nhdnug.org/meetings/speakeredit/@Model.Meeting.rowguid">
+                        http://www.nhdnug.org/meetings/speakeredit/@Model.Meeting.rowguid
+                    </a>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td class="display-label">Date:</td>
+            <td>
+                @Model.Meeting.StartDateTime
+                @if (Context.User.IsInRole("Admin") == true)
+                {
+                    <span style="float:right;">
+                        @Html.ActionLink("edit", "Edit", "Meetings", new { id = Model.Meeting.MeetingID }, null) | 
+                        @Html.ActionLink("delete", "Delete", "Meetings", new { id = Model.Meeting.MeetingID }, null) 
+                    </span>
+                }            
+            </td>
+        </tr>
+        <tr>
+            <td class="display-label">Topic:</td>
+            <td>@Model.Meeting.Topic</td>
+        </tr>
+        <tr>
+            <td class="display-label">Speaker:</td>
+            <td>
+                @if (!string.IsNullOrEmpty(Model.Meeting.nh_Speakers.URL ))
+                    { 
+                        <a href="@Model.Meeting.nh_Speakers.URL">@Model.Meeting.nh_Speakers.NameFirstLast</a>
+                    }
+                    else
+                    {
+                        @Model.Meeting.nh_Speakers.NameFirstLast
+                    }
+            </td>
+        </tr>
+        <tr class="moreOrless" style="display:none;">
+            <td class="display-label">Company:</td>
+            <td>
+                @Model.Meeting.nh_Speakers.CompanyName  
+            </td>
+        </tr>
+        <tr class="moreOrless" style="display:none;">
+            <td class="display-label">Bio:</td>
+            <td>
+                @Html.Raw(Model.Meeting.nh_Speakers.Bio )
+            </td>
+        </tr>
+        <tr>
+            <td class="display-label">Location:</td>
+            <td>
+                @Model.Meeting.nh_Addresses.Name
+                @if (!string.IsNullOrEmpty(Model.Meeting.nh_Addresses.Street2))
+                { <text>(@Model.Meeting.nh_Addresses.Street2)</text>}
+                @if (!string.IsNullOrEmpty(Model.Meeting.nh_Addresses.Street1))
+                    {
+                        <a href="@NHDNUG.Mvc.Code.StringExtensions.GetGoogleURL(Model.Meeting.nh_Addresses.Street1,
+                                                                                Model.Meeting.nh_Addresses.City,
+                                                                                Model.Meeting.nh_Addresses.State,
+                                                                                Model.Meeting.nh_Addresses.ZipCode)" target="_blank">Map</a>
+                    }
+            </td>
+        </tr>
+        <tr>
+            <td class="display-label">Description:</td>
+            <td>@Html.Raw(Model.Meeting.Description)</td>
+        </tr>
+        @if (!string.IsNullOrEmpty(Model.Meeting.SponsorID.ToString() ))
+        {
+            <tr>
+                <td>Sponsor:</td>
+                <td>
+                    <img src="@Url.Content("~/Content/images/scaled/" + @Model.Meeting.nh_Sponsors.LogoFileName)" alt="@Model.Meeting.nh_Sponsors.Name" title="@Model.Meeting.nh_Sponsors.Name" /><br />
+                    <a href="@Model.Meeting.nh_Sponsors.URL" target="_blank">@Model.Meeting.nh_Sponsors.URL</a>
+                </td>
+            </tr>
+        }
+        @if (Model.Documents.Count > 0)
+        {
+            <tbody class="moreOrless" style="display:none;">
+            <tr>
+                <td>Downloads:</td>
+                <td>
+                    @foreach (var item in Model.Documents)
+                    {
+                        <a href="@Url.Content("~/Content/documents/" + item.Path)" target="_blank">@Html.DisplayFor(modelItem => item.Path)</a> <br />
+                    }
+                </td>
+            </tr>
+            </tbody>
+        }
+        @if (Model.Announcements.Count > 0)
+        {
+            <tbody class="moreOrless" style="display:none;">
+            <tr>
+                <td>Announcements:</td>
+                <td>
+                    <a href="@Url.Content("~/Meetings/Announcements/" + Model.Meeting.MeetingID)" >See Announcements</a>
+                </td>
+            </tr>
+            </tbody>
+        }       
+    </table>
+
+    <span style="float:right;">
+        @*@Html.ActionLink("more..", "Details", "Meetings", new { id = Model.Meeting.MeetingID }, null)*@
+        <a href="#" id="more" onclick="javascript:showMore();return false" title="Show more meeting details">more</a>
+    </span>
+    <br />
+</div>
+<br />
+
+@section News {
+@Html.Partial("_NewsletterSignUp")
+<br /><br />
+@Html.Partial("_TwitterFeed")
+<br />
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        //initially hide the info and error message boxes
+        $('.moreOrless').hide();
+    });
+
+    function showMore() {
+        if ($('#more').text() == 'more') {
+            $('#more').text('less')
+            $('.moreOrless').fadeIn('slow');
+        }
+        else {
+            $('#more').text('more')
+            $('.moreOrless').fadeOut('slow');
+        }
+    }
+</script>

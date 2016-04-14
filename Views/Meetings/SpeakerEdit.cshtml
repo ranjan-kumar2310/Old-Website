@@ -1,0 +1,85 @@
+﻿@model NHDNUG.Models.ViewModelMeetingEdit
+
+@{
+    ViewBag.Title = "Edit Meeting";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.Meeting.MeetingID)
+    @Html.HiddenFor(model => model.Meeting.SpeakerID )
+    @Html.HiddenFor(model => model.Meeting.AddressID )
+    @Html.HiddenFor(model => model.Meeting.SponsorID )
+    @Html.HiddenFor(model => model.Meeting.MeetingType)
+    @Html.HiddenFor(model => model.Meeting.rowguid)
+
+    @Html.HiddenFor(model => model.Meeting.StartDateTime)
+    @Html.HiddenFor(model => model.Meeting.Duration)
+
+    <div class="featured">
+        <table style="width:100%">
+            <tbody>
+                <tr>
+                    <td class="editor-label">@Html.LabelFor(model => model.Meeting.StartDateTime)</td>
+                    <td class="editor-field">
+                        @Html.DisplayFor(model => model.Meeting.StartDateTime)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="editor-label">@Html.LabelFor(model => model.Meeting.Duration)</td>
+                    <td class="editor-field">
+                        @Html.DisplayFor(model => model.Meeting.Duration) (hours)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="editor-label">@Html.LabelFor(model => model.Meeting.Topic)</td>
+                    <td class="editor-field">
+                        @Html.TextBoxFor(model => model.Meeting.Topic, new { style = "width:400px;" })
+                        @Html.ValidationMessageFor(model => model.Meeting.Topic)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="editor-label">@Html.LabelFor(model => model.Meeting.Description)</td>
+                    <td class="editor-field">
+                        @Html.TextAreaFor(model => model.Meeting.Description, new { style = "width:400px; height:60px" })
+                        @Html.ValidationMessageFor(model => model.Meeting.Description)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="editor-label">@Html.LabelFor(model => model.Meeting.FollowUpNotes)</td>
+                    <td class="editor-field">
+                        @Html.TextAreaFor(model => model.Meeting.FollowUpNotes, new { style = "width:400px; height:60px" })
+                        @Html.ValidationMessageFor(model => model.Meeting.FollowUpNotes)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            This is your dedicated meeting management form, allowing you to update the Topic, Description, Follow up Notes, and Documents associated 
+            with your talk. You can return to this form at any time, before or after the meeting, to update this information.
+        </p>
+        <p>
+            Should you need to update the Date/Time please contact a NHDNUG board member to discuss a change in your availability.
+        </p>
+    </div>
+    <br />
+    <p>
+        <input type="submit" value="Save" class="k-button" /> @ViewBag.Message
+    </p>
+
+    
+}
+
+@section News {
+
+@Html.Partial("_DocumentModule", Model)
+<div style=" padding:10px;">
+Note: You can associate more than one file with your meeting, however there is a 15Mb per file upload limit.
+</div>
+}

@@ -1,0 +1,79 @@
+﻿@model NHDNUG.Data.nh_Meetings
+
+@{
+    ViewBag.Title = "Delete Meeting";
+}
+<script type="text/javascript">
+    setAdminNavFocus("meetingsAdmin")
+</script>
+<h2>@ViewBag.Title</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="featured">
+        <table style="width:100%">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th style="text-align:right;">Meeting Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="display-label">@Html.LabelFor(model => model.StartDateTime)</td>
+                    <td class="display-field">
+                        @Html.DisplayFor(model => model.StartDateTime) 
+                    </td>
+                </tr>
+                <tr>
+                    <td class="display-label">@Html.LabelFor(model => model.Duration)</td>
+                    <td class="display-field">
+                        @Html.DisplayFor(model => model.Duration) (hours)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="display-label">Speaker</td>
+                    <td class="display-field">
+                        @Html.DisplayFor(model => model.nh_Speakers.NameFirstLast)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="display-label">Location</td>
+                    <td class="display-field">
+                        @Html.DisplayFor(model => model.nh_Addresses.Name)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="display-label">@Html.LabelFor(model => model.Topic)</td>
+                    <td class="display-field">
+                        @Html.DisplayFor(model => model.Topic)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="display-label">@Html.LabelFor(model => model.Description)</td>
+                    <td class="display-field">
+                        @Html.DisplayFor(model => model.Description)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="display-label">@Html.LabelFor(model => model.FollowUpNotes)</td>
+                    <td class="display-field">
+                        @Html.DisplayFor(model => model.FollowUpNotes)
+                    </td>
+                </tr>
+                <tr>
+                    <td class="display-label">@Html.LabelFor(model => model.MeetingType)</td>
+                    <td class="display-field">
+                        @Html.DisplayFor(model => model.MeetingType)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+<br /> 
+@using (Html.BeginForm())
+{
+    <p>
+        <input type="submit" value="Delete" class="k-button" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

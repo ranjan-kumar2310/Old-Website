@@ -1,0 +1,36 @@
+﻿@model NHDNUG.Data.nh_Sponsors
+
+@{
+    ViewBag.Title = "Delete Sponsor";
+}
+<script type="text/javascript">
+    setAdminNavFocus("sponsorsAdmin")
+</script>
+<h2>@ViewBag.Title</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div class="featured">
+    <table>
+        <tr>
+            <td class="display-label">@Html.LabelFor(model => model.Name)</td>
+            <td class="display-field">@Html.DisplayFor(model => model.Name)</td>
+        </tr>
+        <tr>
+            <td class="display-label">@Html.LabelFor(model => model.URL)</td>
+            <td class="display-field">@Html.DisplayFor(model => model.URL)</td>
+        </tr>
+        <tr>
+            <td class="display-label">Logo</td>
+            <td class="display-field">
+                <img id="LogoImage" src="@Url.Content("~/Content/images/scaled/" + @Model.LogoFileName)" alt="@Model.LogoFileName" title="@Model.LogoFileName" />
+            </td>
+        </tr>
+    </table>
+</div>
+<br />
+@using (Html.BeginForm()) {
+    <p>
+        <input type="submit" value="Delete" class="k-button" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}

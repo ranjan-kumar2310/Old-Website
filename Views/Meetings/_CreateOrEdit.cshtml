@@ -1,0 +1,82 @@
+﻿@model NHDNUG.Models.ViewModelMeetingEdit 
+
+<div class="featured">
+    <table style="width:100%">
+        <thead>
+            <tr>
+                <th></th>
+                <th style="text-align:right;">Meeting Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="editor-label">@Html.LabelFor(model => model.Meeting.StartDateTime)</td>
+                <td class="editor-field">
+                    @Html.TextBoxFor(model => model.Meeting.StartDateTime) (1/1/1999 6:00 PM)
+                    @Html.ValidationMessageFor(model => model.Meeting.StartDateTime)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">@Html.LabelFor(model => model.Meeting.Duration)</td>
+                <td class="editor-field">
+                    @Html.TextBoxFor(model => model.Meeting.Duration, new { style = "width:20px;" }) (hours)
+                    @Html.ValidationMessageFor(model => model.Meeting.Duration)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">Speaker</td>
+                <td class="editor-field">
+                    <span style="float:right;">@Html.ActionLink("new speaker", "Create", "Speakers")</span>
+                    @Html.DropDownListFor(model => model.Meeting.SpeakerID, (SelectList)Model.PossibleSpeakers, "Choose...")
+	                @Html.ValidationMessageFor(model => model.Meeting.SpeakerID)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">Location</td>
+                <td class="editor-field">
+                    <span style="float:right;">@Html.ActionLink("new location", "Create", "Locations")</span>
+                    @Html.DropDownListFor(model => model.Meeting.AddressID, (SelectList)Model.PossibleLocations, "Choose...")
+	                @Html.ValidationMessageFor(model => model.Meeting.AddressID)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">Sponsor</td>
+                <td class="editor-field">
+                    <span style="float:right;">@Html.ActionLink("new sponsor", "Create", "sponsors")</span>
+                    @Html.DropDownListFor(model => model.Meeting.SponsorID, (SelectList)Model.PossibleSponsors, "Choose...")
+	                @Html.ValidationMessageFor(model => model.Meeting.SponsorID)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">@Html.LabelFor(model => model.Meeting.Topic)</td>
+                <td class="editor-field">
+                    @Html.TextBoxFor(model => model.Meeting.Topic, new { style = "width:400px;" })
+                    @Html.ValidationMessageFor(model => model.Meeting.Topic)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">@Html.LabelFor(model => model.Meeting.Description)</td>
+                <td class="editor-field">
+                    @Html.TextAreaFor(model => model.Meeting.Description, new { style = "width:400px; height:60px" })
+                    @Html.ValidationMessageFor(model => model.Meeting.Description)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">@Html.LabelFor(model => model.Meeting.FollowUpNotes)</td>
+                <td class="editor-field">
+                    @Html.TextAreaFor(model => model.Meeting.FollowUpNotes, new { style = "width:400px; height:60px" })
+                    @Html.ValidationMessageFor(model => model.Meeting.FollowUpNotes)
+                </td>
+            </tr>
+            <tr>
+                <td class="editor-label">@Html.LabelFor(model => model.Meeting.MeetingType)</td>
+                <td class="editor-field">
+                    @Html.EditorFor(model => model.Meeting.MeetingType)
+                    @Html.ValidationMessageFor(model => model.Meeting.MeetingType) (UserGroup)
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br />
+</div>
+<br />

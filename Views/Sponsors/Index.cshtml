@@ -1,0 +1,41 @@
+﻿@model IEnumerable<NHDNUG.Data.nh_Sponsors>
+
+@{
+    ViewBag.Title = "Sponsors";
+}
+<script type="text/javascript">
+    setNavFocus("sponsorsNav")
+</script>
+<h2>@ViewBag.Title</h2>
+<p>
+NHDNUG, a professional non-profit organization, has sponsorship opportunities available for our monthly meetings. 
+Membership is free so NHDNUG relies on Sponsorship for support.
+</p>
+Benefits of Sponsorship:
+<ul>
+    <li>Mention in our monthly mailings and invitations</li>
+    <li>Introduce your organization in front of the monthly meeting and network with members.</li>
+    <li>Logo/Link on our Sponsors Page</li>
+    <li>Logo on monthly slideshow</li>
+    <li>Description of your companies .NET products and/or Services</li>
+</ul>
+<p>
+    If you are interested in sponsoring NHDNUG, please email <a href="mailto:info@nhdnug.org">info@nhdnug.org</a>.
+</p>
+
+@section News {
+    @if (Context.User.IsInRole("Admin")== true){
+        <span style="float:right; padding:15px;">
+            @Html.ActionLink("new sponsor", "Create")
+        </span>
+    }
+    @foreach (var item in Model) {
+        <div style="padding:5px;">
+            <img src="@Url.Content("~/Content/images/scaled/" + @item.LogoFileName)" alt="@item.Name" title="@item.Name" /><br />
+            @if (Context.User.IsInRole("Admin")== true){
+                <text>@Html.ActionLink("edit", "Edit", new { id=item.SponsorID }) | @Html.ActionLink("delete", "Delete", new { id=item.SponsorID }) |</text>
+            }
+            <a href="@item.URL" target="_blank">@item.URL</a>
+        </div>
+    }
+}

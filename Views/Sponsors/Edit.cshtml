@@ -1,0 +1,23 @@
+﻿@model NHDNUG.Data.nh_Sponsors
+
+@{
+    ViewBag.Title = "Edit Sponsor";
+}
+@section head{
+
+}
+<script type="text/javascript">
+    setAdminNavFocus("sponsorsAdmin")
+</script>
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(model => model.SponsorID)
+    @Html.Partial("_CreateOrEdit", Model)
+    <p>
+        <input type="submit" value="Save" class="k-button"  /> | @Html.ActionLink("Back to List", "Index")
+    </p>
+
+}

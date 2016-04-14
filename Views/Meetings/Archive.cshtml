@@ -1,0 +1,84 @@
+﻿@model NHDNUG.Models.ViewModelMeetings
+
+@{
+    ViewBag.Title = "Meeting Archive";
+}
+<script type="text/javascript">
+    setNavFocus("meetingsNav")
+</script>
+
+@section head{
+
+}
+
+@if (Context.User.IsInRole("Admin") == true)
+{
+    <span style="float:right;">
+        @Html.ActionLink("new meeting", "Create", "Meetings") 
+    </span>
+}
+<h2>@ViewBag.Title</h2>
+
+<div id="organizer">
+    <ul id="panelbar">
+    @foreach (var item in Model.Meetings ) {
+        <li>
+            @item.StartDateTime (@NHDNUG.Helpers.HtmlHelpers.Truncate(item.Topic,40))
+	        <div>
+                <table>
+                    <tr>
+                        <td class="display-label">Date:</td>
+                        <td>
+                            @item.StartDateTime
+                            @if (Context.User.IsInRole("Admin") == true)
+                            {
+                                <span style="float:right;">
+                                    @Html.ActionLink("edit", "Edit", new { id = item.MeetingID  }) | 
+                                    @Html.ActionLink("delete", "Delete", new { id = item.MeetingID }) 
+                                </span>
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="display-label">Topic:</td>
+                        <td>@item.Topic</td>
+                    </tr>
+                    <tr>
+                        <td class="display-label">Speaker:</td>
+                        <td>@if (!string.IsNullOrEmpty(item.nh_Speakers.URL))
+                            { 
+                                    <a href="@item.nh_Speakers.URL" target="_blank">@item.nh_Speakers.NameFirstLast</a>
+                            }
+                            else
+                            {
+                                    @item.nh_Speakers.NameFirstLast
+                            }
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="display-label">Description:</td>
+                        <td>@NHDNUG.Mvc.Code.StringExtensions.StripTagsAndAttributes(@item.Description, new string[] { "i", "b", "u", "a" })</td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <span style="float:right;">
+                                @Html.ActionLink("details", "Details", new { id = item.MeetingID  })
+                            </span>
+                        </td>
+                    </tr>
+                </table>		   
+	        </div>    
+        </li>
+    }
+    </ul>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("#panelbar").kendoPanelBar({
+                    expandMode: "single"
+                });
+
+            });
+    </script>
+</div>
+

@@ -1,0 +1,16 @@
+﻿@model NHDNUG.Data.nh_Addresses
+
+@{
+    ViewBag.Title = "Location Details";
+}
+<script type="text/javascript">
+    setAdminNavFocus("locationsAdmin")
+</script>
+<h2>@ViewBag.Title</h2>
+
+@Html.Partial("_Details", Model)
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.AddressID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

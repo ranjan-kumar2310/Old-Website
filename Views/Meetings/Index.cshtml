@@ -1,0 +1,57 @@
+﻿@model NHDNUG.Models.ViewModelMeetings 
+
+@{
+    ViewBag.Title = "Meeting Listing";
+    Layout = "~/Views/Shared/_LayoutNoSidebar.cshtml";
+}
+<script type="text/javascript">
+    setAdminNavFocus("meetingsAdmin")
+</script>
+
+@section head{
+
+}
+
+<h2>@ViewBag.Title</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="featured table-highlight">
+    <table style="width:100%;">
+        <tr>
+            <th>
+                Date
+            </th>
+            <th>
+                Topic
+            </th>
+            <th>
+                Speaker
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model.Meetings)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDateTime)
+            </td>
+            <td>
+                @NHDNUG.Helpers.HtmlHelpers.Truncate(item.Topic, 40)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nh_Speakers.NameFirstLast )
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.MeetingID  }) |
+                @Html.ActionLink("Details", "Details", new { id = item.MeetingID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.MeetingID })
+            </td>
+        </tr>
+    }
+
+    </table>
+</div>
+<br />

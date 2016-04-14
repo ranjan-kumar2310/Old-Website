@@ -1,0 +1,30 @@
+﻿@model NHDNUG.Data.nh_Announcements
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>nh_Announcements</legend>
+
+    <div class="display-label">Title</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Title)
+    </div>
+
+    <div class="display-label">Body</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Body)
+    </div>
+
+    <div class="display-label">nh_Meetings</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nh_Meetings.Topic)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.AnnouncementID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

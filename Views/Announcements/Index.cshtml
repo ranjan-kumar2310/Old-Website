@@ -1,0 +1,50 @@
+﻿@model IEnumerable<NHDNUG.Data.nh_Announcements>
+
+@{
+    ViewBag.Title = "Announcements Listing";
+    Layout = "~/Views/Shared/_LayoutNoSidebar.cshtml";
+}
+<script type="text/javascript">
+    setAdminNavFocus("announcementsAdmin")
+</script>
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="featured table-highlight">
+    <table style="width:100%;">
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            Body
+        </th>
+        <th>
+            Meeting
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @NHDNUG.Helpers.HtmlHelpers.Truncate(item.Body,40)
+        </td>
+        <td>
+            @NHDNUG.Helpers.HtmlHelpers.Truncate(item.nh_Meetings.Topic,20)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AnnouncementID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AnnouncementID })
+        </td>
+    </tr>
+}
+
+</table>
+</div>

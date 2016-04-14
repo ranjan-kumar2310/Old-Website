@@ -1,0 +1,44 @@
+﻿@model NHDNUG.Data.nh_Addresses
+
+<div class="featured">
+<table>
+    <tr>
+        <td class="editor-label">@Html.LabelFor(model => model.Name )</td>
+        <td class="editor-field">
+            @Html.DisplayFor(model => model.Name)
+        </td>
+    </tr>
+    <tr>
+        <td class="editor-label">@Html.LabelFor(model => model.Street1  )</td>
+        <td class="editor-field">
+            @Html.DisplayFor(model => model.Street1)
+        </td>
+    </tr>
+    <tr>
+        <td class="editor-label">Room</td>
+        <td class="editor-field">
+            @Html.DisplayFor(model => model.Street2)
+        </td>
+    </tr>
+    <tr>
+        <td class="editor-label">@Html.LabelFor(model => model.City  )</td>
+        <td class="editor-field">
+            @Html.DisplayFor(model => model.City)
+        </td>
+    </tr>
+    <tr>
+        <td class="editor-label">@Html.LabelFor(model => model.State  )</td>
+        <td class="editor-field">
+            @Html.DisplayFor(model => model.State)
+        </td>
+    </tr>
+    <tr>
+        <td class="editor-label">@Html.LabelFor(model => model.ZipCode   )</td>
+        <td class="editor-field">
+            @Html.DisplayFor(model => model.ZipCode)
+        </td>
+    </tr>          
+</table>
+<br />
+</div>
+<br />

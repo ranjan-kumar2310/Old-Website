@@ -1,0 +1,42 @@
+﻿@model NHDNUG.Data.nh_Speakers
+<div class="featured">
+    <table>
+        <tr>
+            <td class="display-label">Name</td>
+            <td class="display-field">@Html.DisplayFor(model => model.NameFirstLast)</td>
+        </tr>
+        <tr>
+            <td class="display-label">@Html.LabelFor(model => model.CompanyName)</td>
+            <td class="display-field">@Html.DisplayFor(model => model.CompanyName)</td>
+        </tr>
+        <tr>
+            <td class="display-label">@Html.LabelFor(model => model.Bio)</td>
+            <td class="display-field">@Html.Raw(Model.Bio)</td>
+        </tr>
+        <tr>
+            <td class="display-label">@Html.LabelFor(model => model.URL)</td>
+            <td class="display-field">@Html.DisplayFor(model => model.URL)</td>
+        </tr>
+        <tr>
+            <td class="display-label">@Html.LabelFor(model => model.EmailAddress1)</td>
+            <td class="display-field">@Html.DisplayFor(model => model.EmailAddress1)</td>
+        </tr>
+        <tr>
+            <td class="display-label">@Html.LabelFor(model => model.EmailAddress2)</td>
+            <td class="display-field">@Html.DisplayFor(model => model.EmailAddress2)</td>
+        </tr>        
+        <tr>
+            <td class="display-label">@Html.LabelFor(model => model.Twitter)</td>
+            <td class="display-field">@Html.DisplayFor(model => model.Twitter)</td>
+        </tr>       
+        <tr>
+            <td class="display-label">@Html.LabelFor(model => model.PhoneNumber1)</td>
+            <td class="display-field">@Html.DisplayFor(model => model.PhoneNumber1)</td>
+        </tr>
+        <tr>
+            <td class="display-label">@Html.LabelFor(model => model.PhoneNumber2)</td>
+            <td class="display-field">@Html.DisplayFor(model => model.PhoneNumber2)</td>
+        </tr>          
+    </table>
+</div>
+<br />
